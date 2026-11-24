@@ -12,9 +12,11 @@ MAX_CHARS = 120
 
 
 def validate(text: str) -> str:
+    """Gate: UTF-8 text of 1 to 120 characters, one line, not only whitespace."""
     stripped = text.strip()
     if not stripped:
         raise ValueError("entry is empty or only whitespace")
+    stripped.encode("utf-8")  # raises if the line is not encodable as UTF-8
     if "\n" in stripped or "\r" in stripped:
         raise ValueError("entry must be a single line")
     if len(stripped) > MAX_CHARS:
